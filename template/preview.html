@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: 'Instrument Sans', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="max-w-[1600px] mx-auto bg-neutral-50">
+    <section class="relative min-h-screen">
+      <!-- Blue BG -->
+      <div
+        class="absolute top-0 left-0 w-full rounded-br-3xl rounded-bl-3xl bg-[#633BFE] -z-1 hidden md:block md:h-[400px]"
+      ></div>
+      <!-- Preview Navigation -->
+      <div class="relative flex flex-col p-4 md:px-6 md:py-8 w-full">
+        <!-- Profile Navigation -->
+        <nav
+          class="grid grid-cols-2 items-center bg-white rounded-lg gap-4 md:flex md:justify-between p-4 md:px-6"
+        >
+          <a
+            href="#"
+            class="border-2 rounded-lg border-[#633BFE] text-center text-[#633BFE] font-medium py-3 px-8 hover:bg-[#633BFE] hover:text-white transition-colors"
+            >Back to Editor</a
+          >
+          <a
+            href="#"
+            class="border-2 rounded-lg border-[#633BFE] text-center bg-[#633BFE] text-white font-medium py-3 px-8 hover:bg-transparent hover:text-[#633BFE] transition-colors"
+            >Share Link</a
+          >
+        </nav>
+
+        <div class="flex-1 flex justify-center pt-10 pb-20 md:py-28">
+          <!-- Profile Card -->
+          <div class="py-12 px-14 md:rounded-3xl w-[365px] md:bg-white md:shadow-xl">
+            <!-- Profile Image -->
+            <div
+              class="rounded-full h-[120px] w-[120px] mx-auto overflow-hidden border-4 border-[#633BFE] mb-6"
+            >
+              <img src="./assets/sample.png" alt="sample" class="object-center" />
+            </div>
+
+            <!-- Profile Name and Email -->
+            <div class="text-center mb-16">
+              <h1 class="text-4xl font-bold mb-4">Ben Wright</h1>
+              <p class="text-gray-600">benwright@gmail.com</p>
+            </div>
+
+            <!-- Profile Links -->
+            <ul class="flex flex-col gap-5">
+              <li>
+                <a
+                  href="#"
+                  class="bg-black p-4 border-2 border-black text-white rounded-lg flex justify-between items-center"
+                >
+                  <span class="flex items-center gap-2">
+                    <span>
+                      <!-- Social Icon -->
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        class="w-5 h-5"
+                      >
+                        <g clip-path="url(#a)">
+                          <path
+                            fill="#FFF"
+                            d="M9.982 2.288a8.756 8.756 0 0 0-3.963 0c-.754-.462-1.329-.674-1.747-.764a2.315 2.315 0 0 0-.544-.056 1.342 1.342 0 0 0-.247.03l-.01.002-.005.002h-.003l.146.513-.146-.512a.533.533 0 0 0-.342.294 3.328 3.328 0 0 0-.17 2.241 3.578 3.578 0 0 0-.817 2.287c0 1.657.488 2.77 1.321 3.486.584.501 1.292.768 2.002.92a2.496 2.496 0 0 0-.123 1.022v.638c-.434.09-.735.062-.95-.008-.267-.089-.473-.267-.67-.523a5.118 5.118 0 0 1-.289-.429l-.06-.099a9.772 9.772 0 0 0-.24-.378c-.202-.3-.503-.675-.99-.803l-.515-.135-.271 1.032.516.136c.085.021.196.101.379.369.07.106.137.213.202.322l.073.117c.1.162.215.342.349.517.27.352.637.707 1.184.887.373.124.797.154 1.282.079v1.992a.533.533 0 0 0 .533.533h4.267a.533.533 0 0 0 .533-.534v-3.8c0-.336-.015-.644-.11-.931.707-.15 1.41-.416 1.99-.918.833-.72 1.32-1.845 1.32-3.511v-.001a3.578 3.578 0 0 0-.82-2.267 3.328 3.328 0 0 0-.169-2.24.533.533 0 0 0-.34-.295l-.146.512c.146-.512.145-.512.144-.512l-.002-.001-.005-.002-.01-.003a1.344 1.344 0 0 0-.248-.03 2.318 2.318 0 0 0-.544.057c-.417.09-.992.302-1.745.764Z"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z" /></clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                    Github
+                  </span>
+                  <span>
+                    <!-- Arrow Right -->
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="none"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill="#fff"
+                        d="M2.667 7.333v1.334h8L7 12.333l.947.947L13.227 8l-5.28-5.28L7 3.667l3.667 3.666h-8Z"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="bg-black p-4 border-2 border-black text-white rounded-lg flex justify-between items-center"
+                >
+                  <span class="flex items-center gap-2">
+                    <span>
+                      <!-- Social Icon -->
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        class="w-5 h-5"
+                      >
+                        <g clip-path="url(#a)">
+                          <path
+                            fill="#FFF"
+                            d="M9.982 2.288a8.756 8.756 0 0 0-3.963 0c-.754-.462-1.329-.674-1.747-.764a2.315 2.315 0 0 0-.544-.056 1.342 1.342 0 0 0-.247.03l-.01.002-.005.002h-.003l.146.513-.146-.512a.533.533 0 0 0-.342.294 3.328 3.328 0 0 0-.17 2.241 3.578 3.578 0 0 0-.817 2.287c0 1.657.488 2.77 1.321 3.486.584.501 1.292.768 2.002.92a2.496 2.496 0 0 0-.123 1.022v.638c-.434.09-.735.062-.95-.008-.267-.089-.473-.267-.67-.523a5.118 5.118 0 0 1-.289-.429l-.06-.099a9.772 9.772 0 0 0-.24-.378c-.202-.3-.503-.675-.99-.803l-.515-.135-.271 1.032.516.136c.085.021.196.101.379.369.07.106.137.213.202.322l.073.117c.1.162.215.342.349.517.27.352.637.707 1.184.887.373.124.797.154 1.282.079v1.992a.533.533 0 0 0 .533.533h4.267a.533.533 0 0 0 .533-.534v-3.8c0-.336-.015-.644-.11-.931.707-.15 1.41-.416 1.99-.918.833-.72 1.32-1.845 1.32-3.511v-.001a3.578 3.578 0 0 0-.82-2.267 3.328 3.328 0 0 0-.169-2.24.533.533 0 0 0-.34-.295l-.146.512c.146-.512.145-.512.144-.512l-.002-.001-.005-.002-.01-.003a1.344 1.344 0 0 0-.248-.03 2.318 2.318 0 0 0-.544.057c-.417.09-.992.302-1.745.764Z"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z" /></clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                    Github
+                  </span>
+                  <span>
+                    <!-- Arrow Right -->
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="none"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill="#fff"
+                        d="M2.667 7.333v1.334h8L7 12.333l.947.947L13.227 8l-5.28-5.28L7 3.667l3.667 3.666h-8Z"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="bg-black p-4 border-2 border-black text-white rounded-lg flex justify-between items-center"
+                >
+                  <span class="flex items-center gap-2">
+                    <span>
+                      <!-- Social Icon -->
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        class="w-5 h-5"
+                      >
+                        <g clip-path="url(#a)">
+                          <path
+                            fill="#FFF"
+                            d="M9.982 2.288a8.756 8.756 0 0 0-3.963 0c-.754-.462-1.329-.674-1.747-.764a2.315 2.315 0 0 0-.544-.056 1.342 1.342 0 0 0-.247.03l-.01.002-.005.002h-.003l.146.513-.146-.512a.533.533 0 0 0-.342.294 3.328 3.328 0 0 0-.17 2.241 3.578 3.578 0 0 0-.817 2.287c0 1.657.488 2.77 1.321 3.486.584.501 1.292.768 2.002.92a2.496 2.496 0 0 0-.123 1.022v.638c-.434.09-.735.062-.95-.008-.267-.089-.473-.267-.67-.523a5.118 5.118 0 0 1-.289-.429l-.06-.099a9.772 9.772 0 0 0-.24-.378c-.202-.3-.503-.675-.99-.803l-.515-.135-.271 1.032.516.136c.085.021.196.101.379.369.07.106.137.213.202.322l.073.117c.1.162.215.342.349.517.27.352.637.707 1.184.887.373.124.797.154 1.282.079v1.992a.533.533 0 0 0 .533.533h4.267a.533.533 0 0 0 .533-.534v-3.8c0-.336-.015-.644-.11-.931.707-.15 1.41-.416 1.99-.918.833-.72 1.32-1.845 1.32-3.511v-.001a3.578 3.578 0 0 0-.82-2.267 3.328 3.328 0 0 0-.169-2.24.533.533 0 0 0-.34-.295l-.146.512c.146-.512.145-.512.144-.512l-.002-.001-.005-.002-.01-.003a1.344 1.344 0 0 0-.248-.03 2.318 2.318 0 0 0-.544.057c-.417.09-.992.302-1.745.764Z"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z" /></clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                    Github
+                  </span>
+                  <span>
+                    <!-- Arrow Right -->
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="none"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill="#fff"
+                        d="M2.667 7.333v1.334h8L7 12.333l.947.947L13.227 8l-5.28-5.28L7 3.667l3.667 3.666h-8Z"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
