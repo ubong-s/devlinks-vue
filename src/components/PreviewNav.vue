@@ -2,10 +2,10 @@
   <nav
     class="grid grid-cols-2 items-center bg-white rounded-lg gap-4 md:flex md:justify-between p-4 md:px-6"
   >
-    <a
-      href="#"
+    <RouterLink
+      :to="{ name: 'profile' }"
       class="border-2 rounded-lg border-primary-blue text-center text-primary-blue font-medium py-3 px-8 hover:bg-primary-blue hover:text-white transition-colors"
-      >Back to Editor</a
+      >Back to Editor</RouterLink
     >
     <a
       href="#"

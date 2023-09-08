@@ -7,7 +7,8 @@ module.exports = {
         'instrument-sans': `'Instrument Sans', sans-serif`
       },
       colors: {
-        'primary-blue': '#633BFE'
+        'primary-blue': '#633BFE',
+        'light-blue': '#EFECFF'
       }
     }
   },
