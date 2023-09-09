@@ -77,11 +77,11 @@
 </template>
 
 <script>
-import IconArrowRight from './icons/IconArrowRight.vue'
-import IconGithub from './icons/IconGithub.vue'
+import IconArrowRight from './icons/IconArrowRight.vue';
+import IconGithub from './icons/IconGithub.vue';
 
 export default {
   name: 'ProfileCard',
   components: { IconGithub, IconArrowRight }
-}
+};
 </script>

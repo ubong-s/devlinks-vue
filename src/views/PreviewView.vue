@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import PreviewNav from '@/components/PreviewNav.vue'
-import ProfileCard from '@/components/ProfileCard.vue'
+import PreviewNav from '@/components/PreviewNav.vue';
+import ProfileCard from '@/components/ProfileCard.vue';
 
 export default {
   name: 'PreviewView',
@@ -25,5 +25,5 @@ export default {
     PreviewNav,
     ProfileCard
   }
-}
+};
 </script>
