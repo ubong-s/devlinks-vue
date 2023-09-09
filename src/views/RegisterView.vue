@@ -110,7 +110,6 @@ export default {
       try {
         console.log(values);
       } catch (error) {
-        this.registerShowAlert = true;
         this.registerInSubmission = false;
         this.registerAlertVariant = 'bg-red-100 text-red-900';
         this.registerAlertMessage = 'An unexpected error occured. Please try again later';
