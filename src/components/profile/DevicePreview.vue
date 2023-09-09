@@ -7,7 +7,7 @@
       <div class="absolute left-0 top-0 w-full h-full py-12 px-7">
         <!-- Profile Image -->
         <div
-          class="rounded-full h-[75px] w-[75px] mx-auto overflow-hidden border-2 border-[#633BFE] mb-4"
+          class="rounded-full h-[75px] w-[75px] mx-auto overflow-hidden border-2 border-primary-blue mb-4"
         >
           <img src="/assets/sample.png" alt="sample" class="object-center" />
         </div>

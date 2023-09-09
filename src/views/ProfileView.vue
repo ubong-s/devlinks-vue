@@ -21,47 +21,47 @@
 </template>
 
 <script>
-import ProfileNav from '@/components/profile/ProfileNav.vue'
-import DevicePreview from '@/components/profile/DevicePreview.vue'
-import CustomizeLinks from '@/components/profile/CustomizeLinks.vue'
-import ProfileDetails from '@/components/profile/ProfileDetails.vue'
+import ProfileNav from '@/components/profile/ProfileNav.vue';
+import DevicePreview from '@/components/profile/DevicePreview.vue';
+import CustomizeLinks from '@/components/profile/CustomizeLinks.vue';
+import ProfileDetails from '@/components/profile/ProfileDetails.vue';
 
 export default {
   name: 'ProfileView',
   data() {
     return {
       tab: 'links'
-    }
+    };
   },
   methods: {
     selectTab(value) {
-      this.tab = value
+      this.tab = value;
     }
   },
   created() {
-    const { tab } = this.$route.query
+    const { tab } = this.$route.query;
 
-    this.tab = tab === 'links' || tab === 'details' ? tab : 'links'
+    this.tab = tab === 'links' || tab === 'details' ? tab : 'links';
 
     this.$router.push({
       query: {
         tab: this.tab
       }
-    })
+    });
   },
   watch: {
     tab(value) {
       if (value === this.$route.query.tab) {
-        return
+        return;
       }
 
       this.$router.push({
         query: {
           tab: value
         }
-      })
+      });
     }
   },
   components: { ProfileNav, DevicePreview, CustomizeLinks, ProfileDetails }
-}
+};
 </script>

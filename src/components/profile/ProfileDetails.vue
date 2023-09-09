@@ -9,8 +9,10 @@
       <div
         class="flex flex-col gap-4 items-start bg-neutral-50 p-4 rounded-lg md:p-8 md:grid md:grid-cols-3 md:gap-8 md:items-center"
       >
-        <p>Profile Image</p>
-        <div class="flex flex-col gap-4 items-center rounded-lg bg-[#EFECFF] p-12">
+        <p class="text-sm font-semibold text-gray-400">Profile Image</p>
+        <div
+          class="flex flex-col gap-4 items-center text-center rounded-lg bg-[#EFECFF] py-12 px-8"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="40"
@@ -25,7 +27,7 @@
           </svg>
           + Upload Image
         </div>
-        <p>Image must be below 1024 X 1024px. Use PNG,JPG or BMP format</p>
+        <p class="text-sm">Image must be below 1024 X 1024px. Use PNG,JPG or BMP format</p>
       </div>
       <!-- Profile Image END-->
 
@@ -33,7 +35,7 @@
       <div class="rounded-lg bg-neutral-50 p-4 mt-8 md:p-8">
         <form>
           <div class="grid gap-2 mt-4 md:grid-cols-3 md:gap-8 md:items-center">
-            <label class="text-sm font-bold text-gray-400">First Name</label>
+            <label class="text-sm font-semibold text-gray-400">First Name</label>
             <input type="text" class="rounded-lg py-3 px-4 border border-gray-200 col-span-2" />
           </div>
           <div class="grid gap-2 mt-4 md:grid-cols-3 md:gap-8 md:items-center">

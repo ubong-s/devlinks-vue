@@ -1,7 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import PreviewView from '../views/PreviewView.vue'
-import ProfileView from '../views/ProfileView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import PreviewView from '../views/PreviewView.vue';
+import ProfileView from '../views/ProfileView.vue';
+import RegisterView from '../views/RegisterView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,8 +21,13 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView
     }
   ]
-})
+});
 
-export default router
+export default router;
