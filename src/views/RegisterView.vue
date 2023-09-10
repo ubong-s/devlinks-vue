@@ -7,7 +7,7 @@
       <!-- Alert Message -->
       <p
         v-show="registerShowAlert"
-        class="rounded-lg bg-light-blue p-4 text-primary-blue mb-4 text-center"
+        class="rounded-lg p-4 mb-4 text-center"
         :class="registerAlertVariant"
       >
         {{ registerAlertMessage }}
@@ -79,11 +79,19 @@
           Register
         </button>
       </VeeForm>
+
+      <p class="mt-8 text-center">
+        Aleady have an account?
+        <RouterLink :to="{ name: 'login' }" class="text-primary-blue">Login</RouterLink>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import { useUserStore } from '../stores/user';
+
 export default {
   name: 'RegisterView',
   data() {
@@ -101,6 +109,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useUserStore, {
+      createUser: 'register'
+    }),
     async register(values) {
       this.registerShowAlert = true;
       this.registerInSubmission = true;
@@ -108,19 +119,20 @@ export default {
       this.registerAlertMessage = 'Please wait! Your account is being created';
 
       try {
-        console.log(values);
+        await this.createUser(values);
       } catch (error) {
         this.registerInSubmission = false;
         this.registerAlertVariant = 'bg-red-100 text-red-900';
-        this.registerAlertMessage = 'An unexpected error occured. Please try again later';
-        console.log(error);
+        this.registerAlertMessage =
+          error.code === 'auth/email-already-in-use' ? 'Email is already in use' : error.message;
+        console.log(error.message);
 
         return;
       }
 
       this.registerAlertVariant = 'bg-green-100 text-green-900';
       this.registerAlertMessage = 'Success! Your account has been created';
-      // this.$router.push({ name: 'profile' })
+      this.$router.push({ name: 'profile' });
     }
   }
 };

@@ -15,6 +15,13 @@ import {
   min_value as minValue,
   confirmed
 } from '@vee-validate/rules';
+import { usersCollection } from './firebase';
+
+// eslint-disable-next-line no-unused-vars
+async function checkUsername(username) {
+  const usernameSnapshot = await usersCollection.where('username', '==', username).get();
+  return usernameSnapshot.empty;
+}
 
 export default {
   install(app) {
@@ -30,6 +37,7 @@ export default {
     defineRule('maxValue', maxValue);
     defineRule('minValue', minValue);
     defineRule('passwordsMismatch', confirmed);
+    // defineRule('usernameExists', checkUsername);
 
     configure({
       generateMessage: (ctx) => {
@@ -41,7 +49,8 @@ export default {
           email: `The field ${ctx.field} is must be a valid email`,
           minValue: `The field ${ctx.field} is too low`,
           maxValue: `The field ${ctx.field} is too high`,
-          passwordsMismatch: "The passwords don't match"
+          passwordsMismatch: "The passwords don't match",
+          usernameExists: 'Username is unavailable'
         };
 
         const message = messages[ctx.rule.name]
