@@ -5,11 +5,7 @@
       <h1 class="text-2xl font-bold md:text-3xl mb-6">Welcome back</h1>
 
       <!-- Alert Message -->
-      <p
-        v-show="loginShowAlert"
-        class="rounded-lg bg-light-blue p-4 text-primary-blue mb-4 text-center"
-        :class="loginAlertVariant"
-      >
+      <p v-show="loginShowAlert" class="rounded-lg p-4 mb-4 text-center" :class="loginAlertVariant">
         {{ loginAlertMessage }}
       </p>
 
@@ -49,11 +45,21 @@
           Login
         </button>
       </VeeForm>
+
+      <p class="mt-8 text-center">
+        Don't have an account?
+        <RouterLink :to="{ name: 'register' }" class="text-primary-blue"
+          >Create an acccount</RouterLink
+        >
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import { useUserStore } from '../stores/user';
+
 export default {
   name: 'LoginView',
   data() {
@@ -69,6 +75,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useUserStore, ['authenticate']),
     async login(values) {
       this.loginShowAlert = true;
       this.loginInSubmission = true;
@@ -76,7 +83,7 @@ export default {
       this.loginAlertMessage = 'Please wait! Your are being logged in';
 
       try {
-        console.log(values);
+        await this.authenticate(values);
       } catch (error) {
         this.loginInSubmission = false;
         this.loginAlertVariant = 'bg-red-100 text-red-900';
@@ -88,7 +95,7 @@ export default {
 
       this.loginAlertVariant = 'bg-green-100 text-green-900';
       this.loginAlertMessage = 'Success! Logged in';
-      // this.$router.push({ name: 'profile' })
+      this.$router.push({ name: 'profile' });
     }
   }
 };
