@@ -3,10 +3,20 @@ import { auth, usersCollection } from '../includes/firebase';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    userLoggedIn: false
+    userLoggedIn: false,
+    currentUser: {}
   }),
 
   actions: {
+    async getUser(uid) {
+      try {
+        const docRef = await usersCollection.doc(uid).get();
+
+        return docRef.exists ? docRef.data() : {};
+      } catch (error) {
+        console.log('Error getting document:', error);
+      }
+    },
     async register(values) {
       const usernameSnapshot = await usersCollection.where('username', '==', values.username).get();
 
@@ -21,16 +31,19 @@ export const useUserStore = defineStore('user', {
         email: values.email
       });
 
+      this.currentUser = await this.getUser(userCred.user.uid);
       this.userLoggedIn = true;
     },
     async authenticate(values) {
-      await auth.signInWithEmailAndPassword(values.email, values.password);
+      const userCred = await auth.signInWithEmailAndPassword(values.email, values.password);
 
+      this.currentUser = await this.getUser(userCred.user.uid);
       this.userLoggedIn = true;
     },
     async signOut() {
       await auth.signOut();
 
+      this.currentUser = {};
       this.userLoggedIn = false;
     }
   }
