@@ -1,3 +1,19 @@
 body {
-  @apply font-instrument-sans max-w-[1600px] mx-auto bg-neutral-50;
+  @apply font-instrument-sans max-w-[1600px] w-screen overflow-x-hidden mx-auto bg-neutral-50;
+}
+
+.progress-bar {
+  background-size: 1rem 1rem;
+  animation: progress-bar-line 1s linear infinite;
+
+  @apply text-primary-blue;
+}
+
+@keyframes progress-bar-line {
+  0% {
+    background-position: 1rem 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }

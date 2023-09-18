@@ -1,0 +1,23 @@
+<template>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    :class="{ classes }"
+    width="14"
+    height="9"
+    fill="none"
+    viewBox="0 0 14 9"
+  >
+    <path stroke="currentColor" stroke-width="2" d="m1 1 6 6 6-6" />
+  </svg>
+</template>
+
+<script>
+export default {
+  name: 'IconChevronDown',
+  props: {
+    classes: {
+      type: String
+    }
+  }
+};
+</script>

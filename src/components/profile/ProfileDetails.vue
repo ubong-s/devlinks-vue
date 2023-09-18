@@ -6,54 +6,55 @@
         Add your details to create a personal touch to your profile
       </p>
       <!-- Profile Image START-->
-      <div
-        class="flex flex-col gap-4 items-start bg-neutral-50 p-4 rounded-lg md:p-8 md:grid md:grid-cols-3 md:gap-8 md:items-center"
-      >
-        <p class="text-sm font-semibold text-gray-400">Profile Image</p>
-        <div
-          class="flex flex-col gap-4 items-center text-center rounded-lg bg-[#EFECFF] py-12 px-8"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            fill="none"
-            viewBox="0 0 40 40"
-          >
-            <path
-              fill="#633CFF"
-              d="M33.75 6.25H6.25a2.5 2.5 0 0 0-2.5 2.5v22.5a2.5 2.5 0 0 0 2.5 2.5h27.5a2.5 2.5 0 0 0 2.5-2.5V8.75a2.5 2.5 0 0 0-2.5-2.5Zm0 2.5v16.055l-4.073-4.072a2.5 2.5 0 0 0-3.536 0l-3.125 3.125-6.875-6.875a2.5 2.5 0 0 0-3.535 0L6.25 23.339V8.75h27.5ZM6.25 26.875l8.125-8.125 12.5 12.5H6.25v-4.375Zm27.5 4.375h-3.34l-5.624-5.625L27.91 22.5l5.839 5.84v2.91ZM22.5 15.625a1.875 1.875 0 1 1 3.75 0 1.875 1.875 0 0 1-3.75 0Z"
-            />
-          </svg>
-          + Upload Image
-        </div>
-        <p class="text-sm">Image must be below 1024 X 1024px. Use PNG,JPG or BMP format</p>
-      </div>
+      <ProfileImage />
       <!-- Profile Image END-->
 
       <!-- Profile Details Form Start -->
       <div class="rounded-lg bg-neutral-50 p-4 mt-8 md:p-8">
-        <form>
+        <VeeForm
+          id="profile-details"
+          :validation-schema="schema"
+          :initial-values="{
+            firstName: currentUser.firstName,
+            lastName: currentUser.lastName,
+            workEmail: currentUser.workEmail
+          }"
+          @submit="updateUser"
+        >
           <div class="grid gap-2 mt-4 md:grid-cols-3 md:gap-8 md:items-center">
-            <label class="text-sm font-semibold text-gray-400">First Name</label>
-            <input type="text" class="rounded-lg py-3 px-4 border border-gray-200 col-span-2" />
+            <label name="firstName" class="text-sm font-semibold text-gray-400">First Name</label>
+            <VeeField
+              name="firstName"
+              type="text"
+              class="rounded-lg py-3 px-4 border border-gray-200 col-span-2 focus:shadow-primary-blue focus:border-primary-blue focus:outline-none"
+            />
           </div>
           <div class="grid gap-2 mt-4 md:grid-cols-3 md:gap-8 md:items-center">
-            <label class="text-sm font-bold text-gray-400">Last Name</label>
-            <input type="text" class="rounded-lg py-3 px-4 border border-gray-200 col-span-2" />
+            <label name="lastName" class="text-sm font-bold text-gray-400">Last Name</label>
+            <VeeField
+              name="lastName"
+              type="text"
+              class="rounded-lg py-3 px-4 border border-gray-200 col-span-2 focus:shadow-primary-blue focus:border-primary-blue focus:outline-none"
+            />
           </div>
           <div class="grid gap-2 mt-4 md:grid-cols-3 md:gap-8 md:items-center">
-            <label class="text-sm font-bold text-gray-400">Email</label>
-            <input type="text" class="rounded-lg py-3 px-4 border border-gray-200 col-span-2" />
+            <label class="text-sm font-bold text-gray-400">Work Email</label>
+            <VeeField
+              name="workEmail"
+              type="text"
+              class="rounded-lg py-3 px-4 border border-gray-200 col-span-2 focus:shadow-primary-blue focus:border-primary-blue focus:outline-none"
+            />
           </div>
-        </form>
+        </VeeForm>
       </div>
       <!-- Profile Details Form  End -->
     </div>
     <hr />
     <div class="flex px-4 py-8 rounded-lg bg-white md:p-10 md:justify-end">
       <button
-        class="border-2 rounded-lg border-primary-blue text-center text-white bg-primary-blue font-medium py-3 px-5 w-full md:px-8 hover:bg-transparent hover:text-primary-blue transition-colors md:w-min"
+        form="profile-details"
+        type="submit"
+        class="border-2 rounded-lg border-primary-blue text-center text-white bg-primary-blue font-medium py-3 px-5 w-full md:px-8 hover:opacity-90 transition-colors md:w-min"
       >
         Save
       </button>
@@ -62,7 +63,66 @@
 </template>
 
 <script>
+import { mapActions, mapWritableState } from 'pinia';
+import { useUserStore } from '../../stores/user';
+import ProfileImage from './ProfileImage.vue';
+
 export default {
-  name: 'ProfileDetails'
-}
+  name: 'ProfileDetails',
+  data() {
+    return {
+      schema: {
+        firstName: '',
+        lastName: '',
+        workEmail: ''
+      }
+    };
+  },
+  computed: {
+    ...mapWritableState(useUserStore, ['toast', 'currentUser'])
+  },
+  methods: {
+    ...mapActions(useUserStore, ['updateUserDetails']),
+    async updateUser(values) {
+      this.toast = {
+        show: true,
+        message: 'Updating details....',
+        variant: 'bg-white'
+      };
+
+      if (
+        values.firstName === this.currentUser.firstName &&
+        values.lastName === this.currentUser.lastName &&
+        values.workEmail === this.currentUser.workEmail
+      ) {
+        this.toast = {
+          show: true,
+          message: 'Values Unchanged',
+          variant: 'bg-white'
+        };
+        return;
+      }
+
+      try {
+        await this.updateUserDetails({
+          firstName: values.firstName,
+          lastName: values.lastName,
+          workEmail: values.workEmail
+        });
+        this.toast = {
+          show: true,
+          message: 'Succesfully updated details',
+          variant: 'bg-green-400'
+        };
+      } catch (error) {
+        this.toast = {
+          show: true,
+          message: 'Error Updating details',
+          variant: 'bg-red-400'
+        };
+      }
+    }
+  },
+  components: { ProfileImage }
+};
 </script>

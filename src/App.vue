@@ -14,7 +14,7 @@ export default {
   name: 'App',
   components: { UserBar },
   computed: {
-    ...mapWritableState(useUserStore, ['userLoggedIn', 'currentUser'])
+    ...mapWritableState(useUserStore, ['userLoggedIn', 'currentUser', 'formData'])
   },
   methods: {
     ...mapActions(useUserStore, ['getUser'])
@@ -22,7 +22,11 @@ export default {
   async created() {
     if (auth.currentUser) {
       this.userLoggedIn = true;
-      this.currentUser = await this.getUser(auth.currentUser.uid);
+
+      const userData = await this.getUser(auth.currentUser.uid);
+
+      this.currentUser = { ...userData };
+      this.formData = { ...userData };
     }
   }
 };

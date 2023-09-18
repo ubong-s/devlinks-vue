@@ -4,7 +4,12 @@ import { auth, usersCollection } from '../includes/firebase';
 export const useUserStore = defineStore('user', {
   state: () => ({
     userLoggedIn: false,
-    currentUser: {}
+    currentUser: {},
+    toast: {
+      show: false,
+      message: '',
+      variant: ''
+    }
   }),
 
   actions: {
@@ -27,18 +32,33 @@ export const useUserStore = defineStore('user', {
       const userCred = await auth.createUserWithEmailAndPassword(values.email, values.password);
 
       await usersCollection.doc(userCred.user.uid).set({
+        uid: userCred.user.uid,
         username: values.username,
-        email: values.email
+        email: values.email,
+        workEmail: values.workEmail
       });
 
-      this.currentUser = await this.getUser(userCred.user.uid);
+      const userData = await this.getUser(userCred.user.uid);
+
+      this.currentUser = { ...userData };
       this.userLoggedIn = true;
     },
     async authenticate(values) {
       const userCred = await auth.signInWithEmailAndPassword(values.email, values.password);
 
-      this.currentUser = await this.getUser(userCred.user.uid);
+      const userData = await this.getUser(userCred.user.uid);
+
+      this.currentUser = { ...userData };
       this.userLoggedIn = true;
+    },
+    async updateUserDetails(values) {
+      delete values.email;
+      await usersCollection.doc(auth.currentUser.uid).update(values);
+      await auth.currentUser.updateProfile({
+        displayName: `${values.firstNaame} ${values.lastName}`
+      });
+
+      this.currentUser = { ...this.currentUser, ...values };
     },
     async signOut() {
       await auth.signOut();
