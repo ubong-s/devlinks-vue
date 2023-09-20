@@ -12,6 +12,7 @@
       <!-- Profile Details Form Start -->
       <div class="rounded-lg bg-neutral-50 p-4 mt-8 md:p-8">
         <VeeForm
+          ref="formDetails"
           id="profile-details"
           :validation-schema="schema"
           :initial-values="{
@@ -75,7 +76,8 @@ export default {
         firstName: '',
         lastName: '',
         workEmail: ''
-      }
+      },
+      inSubmission: false
     };
   },
   computed: {
@@ -84,6 +86,7 @@ export default {
   methods: {
     ...mapActions(useUserStore, ['updateUserDetails']),
     async updateUser(values) {
+      this.inSubmission = true;
       this.toast = {
         show: true,
         message: 'Updating details....',
@@ -95,6 +98,7 @@ export default {
         values.lastName === this.currentUser.lastName &&
         values.workEmail === this.currentUser.workEmail
       ) {
+        this.inSubmission = false;
         this.toast = {
           show: true,
           message: 'Values Unchanged',
@@ -121,6 +125,7 @@ export default {
           variant: 'bg-red-400'
         };
       }
+      this.inSubmission = false;
     }
   },
   components: { ProfileImage }

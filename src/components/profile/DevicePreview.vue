@@ -30,15 +30,16 @@
         <ul class="flex flex-col gap-3">
           <li v-for="link in currentUser.links" :key="link.id">
             <div
-              class="bg-black px-2 py-[7px] border-2 w-full border-black text-sm text-white rounded-lg flex justify-between items-center"
+              class="px-2 py-2 border-2 w-full text-sm text-white rounded-lg flex justify-between items-center"
+              :class="buttonVariants[link.code]"
             >
-              <a class="flex items-center gap-2">
+              <div class="flex items-center gap-2">
                 <span>
                   <!-- Social Icon -->
-                  <img :src="`/assets/icon-${link.code}.svg`" alt="" />
+                  <img :src="`/assets/device-icons/icon-${link.code}.svg`" alt="" />
                 </span>
                 {{ link.platform }}
-              </a>
+              </div>
               <span>
                 <!-- Arrow Right -->
                 <IconArrowRight />
@@ -55,11 +56,17 @@
 
 <script>
 import { mapWritableState } from 'pinia';
-import IconArrowRight from '../icons/IconArrowRight.vue';
-import { useUserStore } from '../../stores/user';
+import { useUserStore } from '@/stores/user';
+import IconArrowRight from '@/components/icons/IconArrowRight.vue';
+import { buttonVariants } from '@/data/buttonVariants';
 
 export default {
   name: 'DevicePreview',
+  data() {
+    return {
+      buttonVariants
+    };
+  },
   computed: {
     ...mapWritableState(useUserStore, ['currentUser'])
   },

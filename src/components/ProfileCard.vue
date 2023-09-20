@@ -6,64 +6,38 @@
       <div
         class="rounded-full h-[120px] w-[120px] mx-auto overflow-hidden border-4 border-primary-blue mb-6"
       >
-        <img src="./assets/sample.png" alt="sample" class="object-center" />
+        <img
+          v-if="currentUser.imageUrl"
+          :src="currentUser.imageUrl"
+          alt="sample"
+          class="object-center"
+        />
+        <img else src="/assets/sample.png" alt="sample" class="object-center" />
       </div>
 
       <!-- Profile Name and Email -->
       <div class="text-center mb-16">
-        <h1 class="text-4xl font-bold mb-4">Ben Wright</h1>
-        <p class="text-gray-600">benwright@gmail.com</p>
+        <h1 class="text-4xl font-bold mb-4">
+          {{ currentUser.firstName }} {{ currentUser.lastName }}
+        </h1>
+        <p class="text-gray-600">{{ currentUser.workEmail }}</p>
       </div>
 
       <!-- Profile Links -->
       <ul class="flex flex-col gap-5">
-        <li>
+        <li v-for="link in currentUser.links" :key="link.id">
           <a
-            href="#"
-            class="bg-black p-4 border-2 border-black text-white rounded-lg flex justify-between items-center"
+            :href="link.url"
+            target="_blank"
+            class="p-4 border-2 text-white rounded-lg flex justify-between items-center"
+            :class="buttonVariants[link.code]"
           >
             <span class="flex items-center gap-2">
               <span>
                 <!-- Social Icon -->
-                <IconGithub />
+                <img :src="`/assets/device-icons/icon-${link.code}.svg`" alt="" />
               </span>
-              Github
-            </span>
-            <span>
-              <!-- Arrow Right -->
-              <IconArrowRight />
-            </span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            class="bg-black p-4 border-2 border-black text-white rounded-lg flex justify-between items-center"
-          >
-            <span class="flex items-center gap-2">
-              <span>
-                <!-- Social Icon -->
-                <IconGithub />
-              </span>
-              Github
-            </span>
-            <span>
-              <!-- Arrow Right -->
-              <IconArrowRight />
-            </span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            class="bg-black p-4 border-2 border-black text-white rounded-lg flex justify-between items-center"
-          >
-            <span class="flex items-center gap-2">
-              <span>
-                <!-- Social Icon -->
-                <IconGithub />
-              </span>
-              Github
+              {{ link.platform }}
             </span>
             <span>
               <!-- Arrow Right -->
@@ -77,11 +51,23 @@
 </template>
 
 <script>
-import IconArrowRight from './icons/IconArrowRight.vue';
-import IconGithub from './icons/IconGithub.vue';
+import { mapWritableState } from 'pinia';
+import { useUserStore } from '@/stores/user';
+import { buttonVariants } from '@/data/buttonVariants';
+import IconArrowRight from '@/components/icons/IconArrowRight.vue';
 
 export default {
   name: 'ProfileCard',
-  components: { IconGithub, IconArrowRight }
+  data() {
+    return {
+      buttonVariants
+    };
+  },
+  computed: {
+    ...mapWritableState(useUserStore, ['currentUser'])
+  },
+  components: {
+    IconArrowRight
+  }
 };
 </script>

@@ -85,7 +85,6 @@
       </div>
       <div>
         <p class="text-sm">Image must be below 1024 X 1024px. Use PNG,JPG or BMP format</p>
-        <p v-show="showUploadAlert" :class="uploadAlertVariant">{{ uploadAlertMessage }}</p>
       </div>
     </div>
   </div>
@@ -103,7 +102,6 @@ export default {
     return {
       task: {},
       isDragOver: false,
-
       imageWidth: 0,
       imageHeight: 0
     };

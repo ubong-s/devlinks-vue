@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="">
     <div class="flex flex-col gap-2 mt-4">
       <p class="text-sm font-bold text-gray-400">Platform</p>
       <div
@@ -8,67 +8,101 @@
         @click="showLinks = !showLinks"
         @mouseleave="showLinks = false"
       >
-        <span>{{ link.platform }}</span>
+        <span class="flex items-center gap-4">
+          <img :src="`/assets/form-icons/icon-${link.code}.svg`" alt="" />
+          {{ link.platform }}
+        </span>
         <span> <IconChevronDown /> </span>
 
-        <div v-show="showLinks" class="bg-white rounded-lg absolute w-full top-full left-0 z-50">
+        <div
+          v-show="showLinks"
+          class="dropdown-container bg-white rounded-lg absolute w-full top-[105%] left-0 z-50 h-[250px] overflow-hidden overflow-y-auto shadow-md"
+        >
           <div
-            v-for="link in availableLinks"
-            :key="link.code"
-            class="px-4 py-3 border-b"
-            @click="selectLink(link)"
+            v-for="item in availableLinks"
+            :key="item.code"
+            class="px-4 py-3 border-b flex items-center gap-4 cursor-pointer hover:text-primary-blue"
+            :class="{ 'text-primary-blue': link.platform === item.platform }"
+            @click="
+              editLink(index, {
+                ...link,
+                code: item.code,
+                platform: item.platform
+              })
+            "
           >
-            {{ link.platform }}
+            <img :src="`/assets/icon-${item.code}.svg`" alt="" />
+            {{ item.platform }}
           </div>
         </div>
       </div>
     </div>
     <div class="flex flex-col gap-2 mt-4">
       <label class="text-sm font-bold text-gray-400">Link</label>
-      <input
-        :name="platform"
-        type="text"
-        class="rounded-lg py-3 px-4 border border-gray-200"
-        :placeholder="placeholder"
-        :value="link.url"
-        @input="formData.links[index].url = $event.target.value"
-      />
+      <div class="relative">
+        <img class="absolute left-4 top-1/2 -translate-y-1/2" src="/assets/icon-link.svg" alt="" />
+        <input
+          name="url"
+          type="text"
+          class="rounded-lg py-3 pl-12 pr-4 border border-gray-200 w-full focus:outline-none focus:border-primary-blue"
+          :value="link.url"
+          :class="{ 'border-red-400': link.error }"
+          @input="
+            editLink(index, {
+              ...link,
+              url: $event.target.value
+            })
+          "
+        />
+      </div>
+      <div class="text-sm mt-0.5 italic text-red-400">
+        {{ link.error }}
+      </div>
     </div>
   </form>
 </template>
 
 <script>
-import { mapWritableState } from 'pinia';
 import { availableLinks } from '@/data/links';
 import IconChevronDown from '../icons/IconChevronDown.vue';
-import { useUserStore } from '../../stores/user';
 
 export default {
   name: 'LinkForm',
   data() {
     return {
       availableLinks,
-      showLinks: false,
-      placeholder: '',
-      code: ''
+      showLinks: false
     };
   },
-  props: { index: Number, link: Object },
+  props: {
+    index: Number,
+    link: {
+      id: String,
+      order: Number,
+      platform: String,
+      url: String,
+      code: String
+    },
+    editLink: Function,
+    error: String
+  },
   components: {
     IconChevronDown
   },
-  computed: {
-    ...mapWritableState(useUserStore, ['formData']),
-    activePlatform() {
-      return this.formData.links[this.index].platform;
-    }
-  },
-  methods: {
-    selectLink(link) {
-      this.formData.links[this.index].platform = link.platform;
-      this.formData.links[this.index].code = link.code;
-      this.placeholder = link.placeholder;
-    }
-  }
+
+  methods: {}
 };
 </script>
+
+<style scoped>
+.dropdown-container::-webkit-scrollbar {
+  height: 0.5rem;
+  width: 0.5em;
+}
+
+.dropdown-container::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 10px;
+  /* outline: 1px solid slategrey; */
+}
+</style>

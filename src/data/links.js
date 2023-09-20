@@ -1,72 +1,58 @@
 export const availableLinks = [
   {
     platform: 'Github',
-    code: 'github',
-    placeholder: 'https://www.github.com/username'
+    code: 'github'
   },
   {
     platform: 'Frontend Mentor',
-    code: 'frontend-mentor',
-    placeholder: 'https://www.frontendmentor.io/profile/username'
+    code: 'frontend-mentor'
   },
   {
     platform: 'Twitter',
-    code: 'twitter',
-    placeholder: 'https://www.twitter.com/username'
+    code: 'twitter'
   },
   {
     platform: 'Linkedin',
-    code: 'linkedin',
-    placeholder: 'https://www.linkedin.com/in/username'
+    code: 'linkedin'
   },
   {
     platform: 'Youtube',
-    code: 'youtube',
-    placeholder: 'https://www.youtube.com/@username'
+    code: 'youtube'
   },
   {
     platform: 'Facebook',
-    code: 'facebook',
-    placeholder: 'https://www.facebook.com/username'
+    code: 'facebook'
   },
   {
     platform: 'Twitch',
-    code: 'twitch',
-    placeholder: 'https://www.twitch.tv/username'
+    code: 'twitch'
   },
   {
     platform: 'Dev.to',
-    code: 'devto',
-    placeholder: 'https://www.dev.to/username'
+    code: 'devto'
   },
   {
     platform: 'Codewars',
-    code: 'codewars',
-    placeholder: 'https://www.codewars.com/users/username'
+    code: 'codewars'
   },
   {
     platform: 'Codepen',
-    code: 'codepen',
-    placeholder: 'https://www.codepen.io/username'
+    code: 'codepen'
   },
   {
     platform: 'FreeCodeCamp',
-    code: 'freecodecamp',
-    placeholder: 'https://www.freecodecamp.org/username'
+    code: 'freecodecamp'
   },
   {
     platform: 'Gitlab',
-    code: 'gitlab',
-    placeholder: 'https://www.gitlab.com/username'
+    code: 'gitlab'
   },
   {
     platform: 'Hashnode',
-    code: 'hashnode',
-    placeholder: 'https://www.hashnode.com/username'
+    code: 'hashnode'
   },
   {
     platform: 'Stack Overflow',
-    code: 'stack-overflow',
-    placeholder: 'https://www.stackoverflow.com/username'
+    code: 'stack-overflow'
   }
 ];
