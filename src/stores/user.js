@@ -22,6 +22,20 @@ export const useUserStore = defineStore('user', {
         console.log('Error getting document:', error);
       }
     },
+    async getUserByUsername(username) {
+      let user;
+      try {
+        const userSnapshot = await usersCollection.where('username', '==', username).get();
+        await userSnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          user = doc.data();
+        });
+
+        return user;
+      } catch (error) {
+        console.log('Error getting document:', error);
+      }
+    },
     async register(values) {
       const usernameSnapshot = await usersCollection.where('username', '==', values.username).get();
 

@@ -97,8 +97,8 @@ export default {
   emits: ['select-tab'],
   methods: {
     onSelectTab(value) {
-      this.$emit('select-tab', value)
+      this.$emit('select-tab', value);
     }
   }
-}
+};
 </script>

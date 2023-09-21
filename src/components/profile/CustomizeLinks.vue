@@ -93,10 +93,10 @@
 
 <script>
 import { mapActions, mapWritableState } from 'pinia';
-import LinkForm from './LinkForm.vue';
 import { useUserStore } from '@/stores/user';
 import { availableLinks } from '@/data/links';
-import LoadingSpinner from '../LoadingSpinner.vue';
+import LinkForm from '@/components/profile/LinkForm.vue';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 const linkValidator = {
   github: 'github.com',
@@ -120,7 +120,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.loading = false;
-    }, 2000);
+    }, 1500);
   },
   data() {
     return {
@@ -230,6 +230,9 @@ export default {
       if (!this.loading) {
         this.links = this.currentUser.links ? [...this.currentUser.links] : [];
       }
+    },
+    currentUser: function () {
+      this.links = this.currentUser.links ? [...this.currentUser.links] : [];
     }
   }
 };

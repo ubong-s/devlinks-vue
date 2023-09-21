@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import PreviewView from '@/views/PreviewView.vue';
 import ProfileView from '@/views/ProfileView.vue';
+import UserPublicView from '@/views/UserPublicView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import LoginView from '@/views/LoginView.vue';
 import { useUserStore } from '@/stores/user';
@@ -13,6 +14,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/user/:id',
+      name: 'user',
+      component: UserPublicView
     },
     {
       path: '/profile/preview',
@@ -30,6 +36,7 @@ const router = createRouter({
         requiresAuth: true
       }
     },
+
     {
       path: '/register',
       name: 'register',
@@ -38,6 +45,7 @@ const router = createRouter({
         userLoggedOut: true
       }
     },
+
     {
       path: '/login',
       name: 'login',

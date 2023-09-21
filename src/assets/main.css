@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap');
+
 body {
   @apply font-instrument-sans max-w-[1600px]  overflow-x-hidden mx-auto bg-neutral-50;
 }

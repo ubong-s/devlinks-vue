@@ -1,6 +1,7 @@
 <template>
-  <section class="">
-    <div class="relative flex flex-col gap-4 p-4 md:px-6 md:py-8 md:gap-8 w-full">
+  <UserBar v-if="userLoggedIn" :currentUser="currentUser" />
+  <section>
+    <div class="relative flex flex-col gap-4 p-4 md:px-6 md:py-6 md:gap-8 w-full">
       <!-- Profile Navigation-->
       <ProfileNav :tab="tab" @select-tab="selectTab" />
 
@@ -22,6 +23,9 @@
 </template>
 
 <script>
+import { mapWritableState } from 'pinia';
+import { useUserStore } from '@/stores/user';
+import UserBar from '@/components/UserBar.vue';
 import ProfileNav from '@/components/profile/ProfileNav.vue';
 import DevicePreview from '@/components/profile/DevicePreview.vue';
 import CustomizeLinks from '@/components/profile/CustomizeLinks.vue';
@@ -36,7 +40,9 @@ export default {
       loading: false
     };
   },
-
+  computed: {
+    ...mapWritableState(useUserStore, ['userLoggedIn', 'currentUser'])
+  },
   methods: {
     selectTab(value) {
       this.tab = value;
@@ -66,6 +72,6 @@ export default {
       });
     }
   },
-  components: { ProfileNav, DevicePreview, CustomizeLinks, ProfileDetails, ToastBar }
+  components: { ProfileNav, DevicePreview, CustomizeLinks, ProfileDetails, ToastBar, UserBar }
 };
 </script>

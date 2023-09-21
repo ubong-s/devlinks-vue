@@ -1,5 +1,11 @@
 <template>
-  <div class="">
+  <div
+    v-if="loading"
+    class="flex items-center justify-center h-full w-full rounded-lg bg-white min-h-[50vh]"
+  >
+    <LoadingSpinner />
+  </div>
+  <div v-else>
     <div class="px-4 py-12 rounded-lg bg-white md:p-10 md:pb-20 lg:flex-1">
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Profile Details</h2>
       <p class="mb-10 text-gray-400 lg:text-lg">
@@ -65,11 +71,17 @@
 
 <script>
 import { mapActions, mapWritableState } from 'pinia';
-import { useUserStore } from '../../stores/user';
-import ProfileImage from './ProfileImage.vue';
+import { useUserStore } from '@/stores/user';
+import ProfileImage from '@/components/profile/ProfileImage.vue';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 export default {
   name: 'ProfileDetails',
+  mounted() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
+  },
   data() {
     return {
       schema: {
@@ -77,6 +89,7 @@ export default {
         lastName: '',
         workEmail: ''
       },
+      loading: true,
       inSubmission: false
     };
   },
@@ -128,6 +141,6 @@ export default {
       this.inSubmission = false;
     }
   },
-  components: { ProfileImage }
+  components: { ProfileImage, LoadingSpinner }
 };
 </script>

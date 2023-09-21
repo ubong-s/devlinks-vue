@@ -31,7 +31,7 @@
               })
             "
           >
-            <img :src="`/assets/icon-${item.code}.svg`" alt="" />
+            <img :src="`/assets/form-icons/icon-${item.code}.svg`" alt="" />
             {{ item.platform }}
           </div>
         </div>
