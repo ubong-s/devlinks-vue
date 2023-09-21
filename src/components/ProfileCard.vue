@@ -1,69 +1,36 @@
 <template>
   <div class="flex-1 flex justify-center pt-10 pb-20 md:py-28">
     <!-- Profile Card -->
-    <div class="py-12 px-14 md:rounded-3xl w-[365px] md:bg-white md:shadow-xl">
+    <div class="py-12 px-14 md:rounded-3xl min-w-[365px] max-w-[400px] md:bg-white md:shadow-xl">
       <!-- Profile Image -->
       <div
         class="rounded-full h-[120px] w-[120px] mx-auto overflow-hidden border-4 border-primary-blue mb-6"
       >
-        <img src="./assets/sample.png" alt="sample" class="object-center" />
+        <img v-if="user.imageUrl" :src="user.imageUrl" :alt="user.username" class="object-center" />
+        <img else src="/assets/headshot.png" alt="sample" class="object-center" />
       </div>
 
       <!-- Profile Name and Email -->
       <div class="text-center mb-16">
-        <h1 class="text-4xl font-bold mb-4">Ben Wright</h1>
-        <p class="text-gray-600">benwright@gmail.com</p>
+        <h1 class="text-4xl font-bold mb-4">{{ user.firstName }} {{ user.lastName }}</h1>
+        <p class="text-gray-600">{{ user.workEmail }}</p>
       </div>
 
       <!-- Profile Links -->
       <ul class="flex flex-col gap-5">
-        <li>
+        <li v-for="link in user.links" :key="link.id">
           <a
-            href="#"
-            class="bg-black p-4 border-2 border-black text-white rounded-lg flex justify-between items-center"
+            :href="link.url"
+            target="_blank"
+            class="px-4 py-3 border-2 text-white rounded-lg flex justify-between items-center"
+            :class="buttonVariants[link.code]"
           >
             <span class="flex items-center gap-2">
               <span>
                 <!-- Social Icon -->
-                <IconGithub />
+                <img :src="`/assets/device-icons/icon-${link.code}.svg`" alt="" />
               </span>
-              Github
-            </span>
-            <span>
-              <!-- Arrow Right -->
-              <IconArrowRight />
-            </span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            class="bg-black p-4 border-2 border-black text-white rounded-lg flex justify-between items-center"
-          >
-            <span class="flex items-center gap-2">
-              <span>
-                <!-- Social Icon -->
-                <IconGithub />
-              </span>
-              Github
-            </span>
-            <span>
-              <!-- Arrow Right -->
-              <IconArrowRight />
-            </span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            class="bg-black p-4 border-2 border-black text-white rounded-lg flex justify-between items-center"
-          >
-            <span class="flex items-center gap-2">
-              <span>
-                <!-- Social Icon -->
-                <IconGithub />
-              </span>
-              Github
+              {{ link.platform }}
             </span>
             <span>
               <!-- Arrow Right -->
@@ -77,11 +44,22 @@
 </template>
 
 <script>
-import IconArrowRight from './icons/IconArrowRight.vue';
-import IconGithub from './icons/IconGithub.vue';
+import { buttonVariants } from '@/data/buttonVariants';
+import IconArrowRight from '@/components/icons/IconArrowRight.vue';
 
 export default {
   name: 'ProfileCard',
-  components: { IconGithub, IconArrowRight }
+  data() {
+    return {
+      buttonVariants
+    };
+  },
+  props: {
+    user: Object
+  },
+
+  components: {
+    IconArrowRight
+  }
 };
 </script>

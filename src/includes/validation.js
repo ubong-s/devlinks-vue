@@ -1,6 +1,7 @@
 import {
   Form as VeeForm,
   Field as VeeField,
+  FieldArray as VeeFieldArray,
   defineRule,
   ErrorMessage,
   configure
@@ -27,6 +28,7 @@ export default {
   install(app) {
     app.component('VeeForm', VeeForm);
     app.component('VeeField', VeeField);
+    app.component('VeeFieldArray', VeeFieldArray);
     app.component('ErrorMessage', ErrorMessage);
 
     defineRule('required', required);

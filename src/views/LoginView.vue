@@ -11,9 +11,9 @@
 
       <VeeForm :validation-schema="schema" @submit="login">
         <!-- Email -->
-        <div class="flex flex-col gap-2 mb-3 lg:grid lg:gap-4 lg:grid-cols-4 lg:items-start">
+        <div class="flex flex-col gap-2 mb-3">
           <label for="email" class="text-sm font-semibold text-gray-400 lg:mt-2">Email</label>
-          <div class="lg:col-span-3">
+          <div>
             <VeeField
               type="text"
               name="email"
@@ -25,9 +25,9 @@
         </div>
 
         <!-- Password -->
-        <div class="flex flex-col gap-2 mb-3 lg:grid lg:gap-4 lg:grid-cols-4 lg:items-start">
+        <div class="flex flex-col gap-2 mb-3">
           <label for="password" class="text-sm font-semibold text-gray-400 lg:mt-2">Password</label>
-          <div class="lg:col-span-3">
+          <div>
             <VeeField
               type="password"
               name="password"

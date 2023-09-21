@@ -6,28 +6,38 @@
     ></div>
     <!-- Preview Navigation -->
     <section class="relative flex flex-col p-4 md:px-6 md:py-8 w-full">
-      <!-- Profile Navigation -->
-      <PreviewNav />
-
       <!-- Profile -->
-      <ProfileCard :user="currentUser" />
+      <ProfileCard :user="user" />
     </section>
   </main>
 </template>
 
 <script>
-import { mapWritableState } from 'pinia';
-import PreviewNav from '@/components/PreviewNav.vue';
+import { mapActions } from 'pinia';
+import { useUserStore } from '@/stores/user';
 import ProfileCard from '@/components/ProfileCard.vue';
-import { useUserStore } from '../stores/user';
 
 export default {
   name: 'PreviewView',
-  computed: {
-    ...mapWritableState(useUserStore, ['currentUser'])
+  data() {
+    return {
+      user: {}
+    };
+  },
+  methods: {
+    ...mapActions(useUserStore, ['getUserByUsername'])
+  },
+  async created() {
+    const user = await this.getUserByUsername(this.$route.params.id);
+
+    if (!user) {
+      this.$router.push({ name: 'home' });
+      return;
+    }
+
+    this.user = user;
   },
   components: {
-    PreviewNav,
     ProfileCard
   }
 };

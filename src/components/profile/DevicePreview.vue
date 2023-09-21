@@ -4,75 +4,47 @@
     class="hidden rounded-lg bg-white lg:flex items-center justify-center h-screen p-16 xl:w-[500px] 2xl:w-[590px] sticky top-2"
   >
     <div class="relative h-[500px] overflow-hidden">
-      <div class="absolute left-0 top-0 w-full h-full py-12 px-7">
+      <div class="absolute left-0 top-4 bottom-8 w-full py-8 px-7 overflow-hidden">
         <!-- Profile Image -->
         <div
           class="rounded-full h-[75px] w-[75px] mx-auto overflow-hidden border-2 border-primary-blue mb-4"
         >
-          <img src="/assets/sample.png" alt="sample" class="object-center" />
+          <img
+            v-if="currentUser.imageUrl"
+            :src="currentUser.imageUrl"
+            alt="sample"
+            class="object-center"
+          />
+          <img else src="/assets/sample.png" alt="sample" class="object-center" />
         </div>
 
         <!-- Profile Name and Email -->
         <div class="text-center mb-9">
-          <h1 class="font-bold mb-0 w-full bg-white">Ben Wright</h1>
-          <p class="text-gray-600 text-sm w-full bg-white">benwright@gmail.com</p>
+          <h1 class="font-bold mb-0 w-full bg-white">
+            {{ currentUser.firstName }} {{ currentUser.lastName }}
+          </h1>
+          <p class="text-gray-600 text-sm w-full bg-white">{{ currentUser.workEmail }}</p>
         </div>
 
         <!-- Profile Links -->
-        <ul class="flex flex-col gap-4">
-          <li>
-            <a
-              href="#"
-              class="bg-black px-2 py-[6px] border-2 w-full border-black text-sm text-white rounded-lg flex justify-between items-center"
+        <ul class="flex flex-col gap-3">
+          <li v-for="link in currentUser.links" :key="link.id">
+            <div
+              class="px-2 py-2 border-2 w-full text-sm text-white rounded-lg flex justify-between items-center"
+              :class="buttonVariants[link.code]"
             >
-              <span class="flex items-center gap-2">
+              <div class="flex items-center gap-2">
                 <span>
                   <!-- Social Icon -->
-                  <IconGithub classes="w-3 h-3" />
+                  <img :src="`/assets/device-icons/icon-${link.code}.svg`" alt="" />
                 </span>
-                Github
-              </span>
+                {{ link.platform }}
+              </div>
               <span>
                 <!-- Arrow Right -->
                 <IconArrowRight />
               </span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="bg-black px-2 py-[6px] border-2 w-full border-black text-sm text-white rounded-lg flex justify-between items-center"
-            >
-              <span class="flex items-center gap-2">
-                <span>
-                  <!-- Social Icon -->
-                  <IconGithub classes="w-3 h-3" />
-                </span>
-                Github
-              </span>
-              <span>
-                <!-- Arrow Right -->
-                <IconArrowRight classes="w-3 h-3" />
-              </span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="bg-black px-2 py-[6px] border-2 w-full border-black text-sm text-white rounded-lg flex justify-between items-center"
-            >
-              <span class="flex items-center gap-2">
-                <span>
-                  <!-- Social Icon -->
-                  <IconGithub classes="w-3 h-3" />
-                </span>
-                Github
-              </span>
-              <span>
-                <!-- Arrow Right -->
-                <IconArrowRight />
-              </span>
-            </a>
+            </div>
           </li>
         </ul>
       </div>
@@ -82,9 +54,25 @@
   <!--Device Preview END -->
 </template>
 
-<script setup>
-import IconArrowRight from '../icons/IconArrowRight.vue'
-import IconGithub from '../icons/IconGithub.vue'
-</script>
+<script>
+import { mapWritableState } from 'pinia';
+import { useUserStore } from '@/stores/user';
+import IconArrowRight from '@/components/icons/IconArrowRight.vue';
+import { buttonVariants } from '@/data/buttonVariants';
 
-<style lang="scss" scoped></style>
+export default {
+  name: 'DevicePreview',
+  data() {
+    return {
+      buttonVariants
+    };
+  },
+  computed: {
+    ...mapWritableState(useUserStore, ['currentUser'])
+  },
+
+  components: {
+    IconArrowRight
+  }
+};
+</script>
