@@ -17,42 +17,53 @@
 
       <!-- Profile Details Form Start -->
       <div class="rounded-lg bg-neutral-50 p-4 mt-8 md:p-8">
-        <VeeForm
-          ref="formDetails"
-          id="profile-details"
-          :validation-schema="schema"
-          :initial-values="{
-            firstName: currentUser.firstName,
-            lastName: currentUser.lastName,
-            workEmail: currentUser.workEmail
-          }"
-          @submit="updateUser"
-        >
+        <form id="profile-details" @submit.prevent="updateUser">
           <div class="grid gap-2 mt-4 md:grid-cols-3 md:gap-8 md:items-center">
             <label name="firstName" class="text-sm font-semibold text-gray-400">First Name</label>
-            <VeeField
-              name="firstName"
-              type="text"
-              class="rounded-lg py-3 px-4 border border-gray-200 col-span-2 focus:shadow-primary-blue focus:border-primary-blue focus:outline-none"
-            />
+            <div class="col-span-2">
+              <input
+                name="firstName"
+                type="text"
+                class="w-full rounded-lg py-3 px-4 border border-gray-200 focus:shadow-primary-blue focus:border-primary-blue focus:outline-none"
+                v-model="profileDetails.firstName"
+                :class="{ 'border-red-400': !profileDetails.firstName }"
+              />
+              <div v-if="!profileDetails.firstName" class="text-sm mt-0.5 italic text-red-400">
+                first name is required
+              </div>
+            </div>
           </div>
           <div class="grid gap-2 mt-4 md:grid-cols-3 md:gap-8 md:items-center">
             <label name="lastName" class="text-sm font-bold text-gray-400">Last Name</label>
-            <VeeField
-              name="lastName"
-              type="text"
-              class="rounded-lg py-3 px-4 border border-gray-200 col-span-2 focus:shadow-primary-blue focus:border-primary-blue focus:outline-none"
-            />
+            <div class="col-span-2">
+              <input
+                name="lastName"
+                type="text"
+                class="w-full rounded-lg py-3 px-4 border border-gray-200 focus:shadow-primary-blue focus:border-primary-blue focus:outline-none"
+                v-model="profileDetails.lastName"
+                :class="{ 'border-red-400': !profileDetails.lastName }"
+              />
+              <div v-if="!profileDetails.lastName" class="text-sm mt-0.5 italic text-red-400">
+                last name is required
+              </div>
+            </div>
           </div>
           <div class="grid gap-2 mt-4 md:grid-cols-3 md:gap-8 md:items-center">
             <label class="text-sm font-bold text-gray-400">Work Email</label>
-            <VeeField
-              name="workEmail"
-              type="text"
-              class="rounded-lg py-3 px-4 border border-gray-200 col-span-2 focus:shadow-primary-blue focus:border-primary-blue focus:outline-none"
-            />
+            <div class="col-span-2">
+              <input
+                name="workEmail"
+                type="text"
+                class="w-full rounded-lg py-3 px-4 border border-gray-200 focus:shadow-primary-blue focus:border-primary-blue focus:outline-none"
+                v-model="profileDetails.workEmail"
+                :class="{ 'border-red-400': !profileDetails.workEmail }"
+              />
+              <div v-if="!profileDetails.workEmail" class="text-sm mt-0.5 italic text-red-400">
+                Work email is required
+              </div>
+            </div>
           </div>
-        </VeeForm>
+        </form>
       </div>
       <!-- Profile Details Form  End -->
     </div>
@@ -62,6 +73,11 @@
         form="profile-details"
         type="submit"
         class="border-2 rounded-lg border-primary-blue text-center text-white bg-primary-blue font-medium py-3 px-5 w-full md:px-8 hover:opacity-90 transition-colors md:w-min"
+        :disabled="valuesUnchanged || inSubmission || valueEmpty"
+        :class="{
+          'opacity-50 disabled:cursor-not-allowed': inSubmission || valuesUnchanged || valueEmpty,
+          'hover:opacity-80': !valuesUnchanged || !valueEmpty
+        }"
       >
         Save
       </button>
@@ -80,25 +96,37 @@ export default {
   mounted() {
     setTimeout(() => {
       this.loading = false;
-    }, 1000);
+    }, 3000);
   },
   data() {
     return {
-      schema: {
-        firstName: '',
-        lastName: '',
-        workEmail: ''
-      },
       loading: true,
       inSubmission: false
     };
   },
   computed: {
-    ...mapWritableState(useUserStore, ['toast', 'currentUser'])
+    ...mapWritableState(useUserStore, ['toast', 'currentUser', 'profileDetails']),
+    valuesUnchanged() {
+      return (
+        JSON.stringify(this.profileDetails) ===
+        JSON.stringify({
+          firstName: this.currentUser.firstName,
+          lastName: this.currentUser.lastName,
+          workEmail: this.currentUser.workEmail
+        })
+      );
+    },
+    valueEmpty() {
+      return (
+        !this.profileDetails.firstName ||
+        !this.profileDetails.lastName ||
+        !this.profileDetails.workEmail
+      );
+    }
   },
   methods: {
     ...mapActions(useUserStore, ['updateUserDetails']),
-    async updateUser(values) {
+    async updateUser() {
       this.inSubmission = true;
       this.toast = {
         show: true,
@@ -106,25 +134,11 @@ export default {
         variant: 'bg-white'
       };
 
-      if (
-        values.firstName === this.currentUser.firstName &&
-        values.lastName === this.currentUser.lastName &&
-        values.workEmail === this.currentUser.workEmail
-      ) {
-        this.inSubmission = false;
-        this.toast = {
-          show: true,
-          message: 'Values Unchanged',
-          variant: 'bg-white'
-        };
-        return;
-      }
-
       try {
         await this.updateUserDetails({
-          firstName: values.firstName,
-          lastName: values.lastName,
-          workEmail: values.workEmail
+          firstName: this.profileDetails.firstName,
+          lastName: this.profileDetails.lastName,
+          workEmail: this.profileDetails.workEmail
         });
         this.toast = {
           show: true,

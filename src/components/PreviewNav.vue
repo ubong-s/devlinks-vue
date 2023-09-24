@@ -7,16 +7,24 @@
       class="border-2 rounded-lg border-primary-blue text-center text-primary-blue font-medium py-3 px-8 hover:bg-primary-blue hover:text-white transition-colors"
       >Back to Editor</RouterLink
     >
-    <a
-      href="#"
+    <button
+      @click="shareLink"
       class="border-2 rounded-lg border-primary-blue text-center bg-primary-blue text-white font-medium py-3 px-8 hover:bg-transparent hover:text-primary-blue transition-colors"
-      >Share Link</a
     >
+      Share Link
+    </button>
   </nav>
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import { useUserStore } from '../stores/user';
+
 export default {
-  name: 'PreviewNav'
+  name: 'PreviewNav',
+
+  methods: {
+    ...mapActions(useUserStore, ['shareLink'])
+  }
 };
 </script>

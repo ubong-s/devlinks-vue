@@ -19,7 +19,6 @@
       <!-- Device Preview and Links END -->
     </div>
   </section>
-  <ToastBar />
 </template>
 
 <script>
@@ -30,14 +29,12 @@ import ProfileNav from '@/components/profile/ProfileNav.vue';
 import DevicePreview from '@/components/profile/DevicePreview.vue';
 import CustomizeLinks from '@/components/profile/CustomizeLinks.vue';
 import ProfileDetails from '@/components/profile/ProfileDetails.vue';
-import ToastBar from '../components/profile/ToastBar.vue';
 
 export default {
   name: 'ProfileView',
   data() {
     return {
-      tab: 'links',
-      loading: false
+      tab: 'links'
     };
   },
   computed: {
@@ -72,6 +69,6 @@ export default {
       });
     }
   },
-  components: { ProfileNav, DevicePreview, CustomizeLinks, ProfileDetails, ToastBar, UserBar }
+  components: { ProfileNav, DevicePreview, CustomizeLinks, ProfileDetails, UserBar }
 };
 </script>

@@ -125,7 +125,7 @@ export default {
   data() {
     return {
       availableLinks,
-      links: [],
+
       errors: [],
       loading: true,
       inSubmission: false
@@ -133,7 +133,7 @@ export default {
   },
   components: { LinkForm, LoadingSpinner },
   computed: {
-    ...mapWritableState(useUserStore, ['toast', 'currentUser', 'userLoggedIn']),
+    ...mapWritableState(useUserStore, ['toast', 'currentUser', 'userLoggedIn', 'links']),
     valuesUnchanged() {
       return JSON.stringify(this.links) === JSON.stringify(this.currentUser.links);
     }
@@ -226,11 +226,7 @@ export default {
     }
   },
   watch: {
-    loading: function () {
-      if (!this.loading) {
-        this.links = this.currentUser.links ? [...this.currentUser.links] : [];
-      }
-    },
+    loading: function () {},
     currentUser: function () {
       this.links = this.currentUser.links ? [...this.currentUser.links] : [];
     }

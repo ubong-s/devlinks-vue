@@ -5,6 +5,8 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     userLoggedIn: false,
     currentUser: {},
+    links: [],
+    profileDetails: {},
     toast: {
       show: false,
       message: '',
@@ -55,6 +57,12 @@ export const useUserStore = defineStore('user', {
       const userData = await this.getUser(userCred.user.uid);
 
       this.currentUser = { ...userData };
+      this.links = [...userData.links];
+      this.profileDetails = {
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        workEmail: userData.workEmail
+      };
       this.userLoggedIn = true;
     },
     async authenticate(values) {
@@ -63,6 +71,12 @@ export const useUserStore = defineStore('user', {
       const userData = await this.getUser(userCred.user.uid);
 
       this.currentUser = { ...userData };
+      this.links = [...userData.links];
+      this.profileDetails = {
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        workEmail: userData.workEmail
+      };
       this.userLoggedIn = true;
     },
     async updateUserDetails(values) {
@@ -79,6 +93,23 @@ export const useUserStore = defineStore('user', {
 
       this.currentUser = {};
       this.userLoggedIn = false;
+    },
+    async shareLink() {
+      const url =
+        import.meta.env.MODE === 'production'
+          ? import.meta.env.VITE_PUBLIC_URL
+          : 'http://127.0.0.1:5173';
+
+      console.log(import.meta.env.MODE);
+
+      let text = `${url}/user/${this.currentUser.username}`;
+      await navigator.clipboard.writeText(text);
+
+      this.toast = {
+        show: true,
+        message: 'Link copied',
+        variant: 'bg-green-400'
+      };
     }
   }
 });
