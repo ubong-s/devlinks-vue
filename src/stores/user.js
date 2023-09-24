@@ -95,12 +95,10 @@ export const useUserStore = defineStore('user', {
       this.userLoggedIn = false;
     },
     async shareLink() {
-      const url =
-        import.meta.env.MODE === 'production'
-          ? import.meta.env.VITE_PUBLIC_URL
-          : 'http://127.0.0.1:5173';
+      const url = import.meta.env.VITE_PUBLIC_URL;
 
       console.log(import.meta.env.MODE);
+      console.log(import.meta.env.VITE_PUBLIC_URL);
 
       let text = `${url}/user/${this.currentUser.username}`;
       await navigator.clipboard.writeText(text);
@@ -108,7 +106,8 @@ export const useUserStore = defineStore('user', {
       this.toast = {
         show: true,
         message: 'Link copied',
-        variant: 'bg-green-400'
+        variant: 'bg-green-400',
+        topPos: true
       };
     }
   }
