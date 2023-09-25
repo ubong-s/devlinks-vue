@@ -4,7 +4,7 @@ export const buttonVariants = {
   twitter: 'border-[#1A8CD8] bg-[#1A8CD8] text-white',
   linkedin: 'border-[#1A6BC4] bg-[#1A6BC4] text-white',
   youtube: 'border-[#FF0000] bg-[#FF0000] text-white',
-  facebook: 'facebook.com',
+  facebook: 'border-[#1877f2] bg-[#1877f2] text-white',
   twitch: 'border-[#8C44F7] bg-[#8C44F7] text-white',
   devto: 'border-black bg-black text-white',
   codewars: 'border-[#A93225] bg-[#A93225] text-white',

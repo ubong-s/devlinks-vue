@@ -97,9 +97,6 @@ export const useUserStore = defineStore('user', {
     async shareLink() {
       const url = import.meta.env.VITE_PUBLIC_URL;
 
-      console.log(import.meta.env.MODE);
-      console.log(import.meta.env.VITE_PUBLIC_URL);
-
       let text = `${url}/user/${this.currentUser.username}`;
       await navigator.clipboard.writeText(text);
 
